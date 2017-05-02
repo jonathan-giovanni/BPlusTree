@@ -46,9 +46,9 @@ public:
         current=NULL;
         tree_level=n;
     }
-    bool listaVacia(Tree *tree){return tree->root==NULL;}
-    void insertar(int _start,int _end,Tree *tree){
-        if(listaVacia(tree)){
+    bool treeEmpty(Tree *tree){return tree->root==NULL;}
+    void insertTree(int _start,int _end,Tree *tree){
+        if(treeEmpty(tree)){
             tree->root=new Node(tree->tree_level,_start,_end);
             tree->tree_start=_start;
             tree->tree_end=_end;
@@ -56,14 +56,14 @@ public:
             tree->current=tree->root;
             if(_start <= tree->current->endScope){
                 if(!tree->current->tree) tree->current->tree = new Tree(tree->tree_level+1);
-                insertar(_start,_end,tree->current->tree);
+                insertTree(_start,_end,tree->current->tree);
                 return;
             }
             while(tree->current->next){
                 tree->current = tree->current->next;
                 if(_start <= tree->current->endScope){
                     if(!tree->current->tree) tree->current->tree = new Tree(tree->tree_level+1);
-                    insertar(_start,_end,tree->current->tree);
+                    insertTree(_start,_end,tree->current->tree);
                     return;
                 }
             }
